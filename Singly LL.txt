@@ -4,48 +4,58 @@ Add Node at Position k
 
 function AddAtPosition(head, value, k):
     newNode = new Node(value)
-    
-    // Case: Insert at head
+
+    // Case: insert at head
     if k == 0:
         newNode.next = head
         return newNode
-    
+
     current = head
-    // Traverse to the node *before* the insertion point
+
+    // Traverse to node BEFORE position k
     for i from 0 to k - 2:
-        if current is NULL: return head // Index out of bounds
+        if current is NULL:
+            return head       // Index out of bounds
         current = current.next
-        
-    // Link new node
+
+    // Insert new node
     newNode.next = current.next
     current.next = newNode
+
     return head
+
 
 
 Add Node at Position k
 
 function RemoveAtPosition(head, k):
-    if head is NULL: return NULL
-    
-    // Case: Remove head
+
+    if head is NULL:
+        return NULL
+
+    // Remove head
     if k == 0:
         temp = head
         head = head.next
         free(temp)
         return head
-        
+
     current = head
-    // Traverse to node *before* the target
+
+    // Reach node BEFORE the node to delete
     for i from 0 to k - 2:
-        if current.next is NULL: return head
+        if current.next is NULL:
+            return head        // Out of bounds
         current = current.next
-        
-    if current.next is NULL: return head
-    
-    // Unlink the node
+
+    // If next does not exist
+    if current.next is NULL:
+        return head
+
     toDelete = current.next
     current.next = current.next.next
     free(toDelete)
+
     return head
 
 Reverse Linked List

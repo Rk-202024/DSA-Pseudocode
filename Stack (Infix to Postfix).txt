@@ -1,0 +1,44 @@
+BEGIN
+
+FUNCTION InfixToPostfix(expression)
+
+    DECLARE Stack s
+    DECLARE STRING Result ← ""
+
+    FOR each character c IN expression DO
+
+        IF c is Operand (A–Z, a–z, 0–9) THEN
+            Result ← Result + c
+
+        ELSE IF c = '(' THEN
+            PUSH(s, c)
+
+        ELSE IF c = ')' THEN
+            WHILE TOP(s) ≠ '(' DO
+                Result ← Result + POP(s)
+            END WHILE
+            POP(s)   // remove '('
+
+        ELSE   // c is operator
+            WHILE s is NOT EMPTY AND
+                  TOP(s) is operator AND
+                  Precedence(TOP(s)) ≥ Precedence(c) DO
+                Result ← Result + POP(s)
+            END WHILE
+
+            PUSH(s, c)
+
+        END IF
+
+    END FOR
+
+    // pop all remaining operators
+    WHILE s is NOT EMPTY DO
+        Result ← Result + POP(s)
+    END WHILE
+
+    RETURN Result
+
+END FUNCTION
+
+END

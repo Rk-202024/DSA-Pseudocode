@@ -4,14 +4,16 @@ function QuickSort(arr, low, high):
         QuickSort(arr, low, pi - 1)
         QuickSort(arr, pi + 1, high)
 
+
+
 function Partition(arr, low, high):
-    pivot = arr[high]  // Choosing last element as pivot
+    pivot = arr[high]           // Choose last element as pivot
     i = low - 1
-    
+
     for j from low to high - 1:
         if arr[j] < pivot:
             i = i + 1
             swap(arr[i], arr[j])
-            
+
     swap(arr[i + 1], arr[high])
     return i + 1

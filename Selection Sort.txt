@@ -1,9 +1,14 @@
 function SelectionSort(arr):
     n = length(arr)
+
     for i from 0 to n - 1:
         minIndex = i
+        
+        // Find index of minimum element in the remaining array
         for j from i + 1 to n - 1:
             if arr[j] < arr[minIndex]:
                 minIndex = j
+        
+        // Swap if a smaller element was found
         if minIndex != i:
             swap(arr[i], arr[minIndex])

@@ -1,11 +1,24 @@
-function BubbleSort(arr):
-    n = length(arr)
-    swapped = true
-    while swapped:
-        swapped = false
-        for i from 0 to n - 2:
-            if arr[i] > arr[i + 1]:
+BEGIN
+
+FUNCTION BubbleSort(arr)
+
+    n ← length(arr)
+    swapped ← true
+
+    WHILE swapped DO
+        swapped ← false
+
+        FOR i ← 0 TO n - 2 DO
+            IF arr[i] > arr[i + 1] THEN
                 swap(arr[i], arr[i + 1])
-                swapped = true
-        n = n - 1  // Optimization: last element is already sorted
-        .
+                swapped ← true
+            END IF
+        END FOR
+
+        n ← n - 1    // Optimization: last element is sorted
+
+    END WHILE
+
+END FUNCTION
+
+END

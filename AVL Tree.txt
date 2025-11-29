@@ -1,74 +1,162 @@
-function AVLInsert(node, key):
-    
-    // 1. Standard BST Insert
-    if node is NULL:
-        return new Node(key)
-    
-    if key < node.key:
-        node.left = AVLInsert(node.left, key)
-    else if key > node.key:
-        node.right = AVLInsert(node.right, key)
-    else:
-        return node // No duplicates allowed
-        
-    
-    // 2. Update height of this ancestor node
-    node.height = 1 + max(Height(node.left), Height(node.right))
-    
-    
-    // 3. Get Balance Factor
-    balance = GetBalance(node)
-    
-    
-    // 4. Check for imbalance and Rotate
-    
-    
+BEGIN
+
+// ============================
+//        HEIGHT FUNCTION
+// ============================
+FUNCTION Height(node)
+    IF node = NULL THEN
+        RETURN 0
+    END IF
+    RETURN node.height
+END FUNCTION
+
+
+// ============================
+//      BALANCE FACTOR
+// ============================
+FUNCTION GetBalance(node)
+    IF node = NULL THEN
+        RETURN 0
+    END IF
+    RETURN Height(node.left) - Height(node.right)
+END FUNCTION
+
+
+
+// ============================
+//       RIGHT ROTATION
+// ============================
+FUNCTION RightRotate(y)
+
+    x ← y.left
+    T2 ← x.right
+
+    // Rotate
+    x.right ← y
+    y.left ← T2
+
+    // Update heights
+    y.height ← 1 + max(Height(y.left), Height(y.right))
+    x.height ← 1 + max(Height(x.left), Height(x.right))
+
+    RETURN x   // New root
+END FUNCTION
+
+
+
+// ============================
+//       LEFT ROTATION
+// ============================
+FUNCTION LeftRotate(x)
+
+    y ← x.right
+    T2 ← y.left
+
+    // Rotate
+    y.left ← x
+    x.right ← T2
+
+    // Update heights
+    x.height ← 1 + max(Height(x.left), Height(x.right))
+    y.height ← 1 + max(Height(y.left), Height(y.right))
+
+    RETURN y   // New root
+END FUNCTION
+
+
+
+// ============================
+//       AVL INSERTION
+// ============================
+FUNCTION AVLInsert(node, key)
+
+    // 1. Normal BST insertion
+    IF node = NULL THEN
+        RETURN new Node(key)
+    END IF
+
+    IF key < node.key THEN
+        node.left ← AVLInsert(node.left, key)
+    ELSE IF key > node.key THEN
+        node.right ← AVLInsert(node.right, key)
+    ELSE
+        RETURN node      // No duplicates allowed
+    END IF
+
+
+    // 2. Update height
+    node.height ← 1 + max(Height(node.left), Height(node.right))
+
+
+    // 3. Check balance
+    balance ← GetBalance(node)
+
+
+    // 4. Imbalance Cases
+
     // Left Left Case
-    if balance > 1 and key < node.left.key:
-        return RightRotate(node)
-        
-    
+    IF balance > 1 AND key < node.left.key THEN
+        RETURN RightRotate(node)
+    END IF
+
     // Right Right Case
-    if balance < -1 and key > node.right.key:
-        return LeftRotate(node)
-        
-    
+    IF balance < -1 AND key > node.right.key THEN
+        RETURN LeftRotate(node)
+    END IF
+
     // Left Right Case
-    if balance > 1 and key > node.left.key:
-        node.left = LeftRotate(node.left)
-        return RightRotate(node)
-        
-    
+    IF balance > 1 AND key > node.left.key THEN
+        node.left ← LeftRotate(node.left)
+        RETURN RightRotate(node)
+    END IF
+
     // Right Left Case
-    if balance < -1 and key < node.right.key:
-        node.right = RightRotate(node.right)
-        return LeftRotate(node)
-        
-    return node
+    IF balance < -1 AND key < node.right.key THEN
+        node.right ← RightRotate(node.right)
+        RETURN LeftRotate(node)
+    END IF
 
-function RightRotate(y):
-    x = y.left
-    T2 = x.right
-    
-    // Perform rotation
-    x.right = y
-    y.left = T2
-    
-    // Update heights
-    y.height = max(Height(y.left), Height(y.right)) + 1
-    x.height = max(Height(x.left), Height(x.right)) + 1
-    return x
+    RETURN node
+END FUNCTION
 
-function LeftRotate(x):
-    y = x.right
-    T2 = y.left
-    
-    // Perform rotation
-    y.left = x
-    x.right = T2
-    
-    // Update heights
-    x.height = max(Height(x.left), Height(x.right)) + 1
-    y.height = max(Height(y.left), Height(y.right)) + 1
-    return y
-    .
+
+
+// ============================
+//      INORDER TRAVERSAL
+// ============================
+FUNCTION Inorder(node)
+    IF node ≠ NULL THEN
+        Inorder(node.left)
+        PRINT node.key
+        Inorder(node.right)
+    END IF
+END FUNCTION
+
+
+
+// ============================
+//      PREORDER TRAVERSAL
+// ============================
+FUNCTION Preorder(node)
+    IF node ≠ NULL THEN
+        PRINT node.key
+        Preorder(node.left)
+        Preorder(node.right)
+    END IF
+END FUNCTION
+
+
+
+// ============================
+//      POSTORDER TRAVERSAL
+// ============================
+FUNCTION Postorder(node)
+    IF node ≠ NULL THEN
+        Postorder(node.left)
+        Postorder(node.right)
+        PRINT node.key
+    END IF
+END FUNCTION
+
+
+END

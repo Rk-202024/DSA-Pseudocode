@@ -1,51 +1,146 @@
-Search
+BEGIN
 
-function Search(root, value):
-    if root is NULL or root.value == value:
-        return root
-    
-    if value < root.value:
-        return Search(root.left, value)
-    else:
-        return Search(root.right, value)
+// ========================
+//       BST SEARCH
+// ========================
+FUNCTION Search(root, value)
+
+    IF root = NULL OR root.value = value THEN
+        RETURN root
+    END IF
+
+    IF value < root.value THEN
+        RETURN Search(root.left, value)
+    ELSE
+        RETURN Search(root.right, value)
+    END IF
+
+END FUNCTION
 
 
-Insertion
 
-function Insert(root, value):
-    if root is NULL:
-        return new Node(value)
-    
-    if value < root.value:
-        root.left = Insert(root.left, value)
-    else if value > root.value:
-        root.right = Insert(root.right, value)
-        
-    return root
+// ========================
+//       BST INSERTION
+// ========================
+FUNCTION Insert(root, value)
 
-Deletion
+    IF root = NULL THEN
+        RETURN new Node(value)
+    END IF
 
-function Delete(root, value):
-    if root is NULL: return root
+    IF value < root.value THEN
+        root.left ← Insert(root.left, value)
 
-    if value < root.value:
-        root.left = Delete(root.left, value)
-    else if value > root.value:
-        root.right = Delete(root.right, value)
-    else:
+    ELSE IF value > root.value THEN
+        root.right ← Insert(root.right, value)
+
+    END IF
+
+    RETURN root
+
+END FUNCTION
+
+
+
+// ========================
+//   FIND MINIMUM NODE
+// ========================
+FUNCTION MinValueNode(node)
+
+    current ← node
+
+    WHILE current.left ≠ NULL DO
+        current ← current.left
+    END WHILE
+
+    RETURN current
+
+END FUNCTION
+
+
+
+// ========================
+//       BST DELETION
+// ========================
+FUNCTION Delete(root, value)
+
+    IF root = NULL THEN
+        RETURN root
+    END IF
+
+    // Look for node
+    IF value < root.value THEN
+        root.left ← Delete(root.left, value)
+
+    ELSE IF value > root.value THEN
+        root.right ← Delete(root.right, value)
+
+    ELSE
         // Node found
-        
-        // Case 1: Leaf or one child
-        if root.left is NULL:
-            return root.right
-        else if root.right is NULL:
-            return root.left
-            
+
+        // Case 1: No child or one child
+        IF root.left = NULL THEN
+            RETURN root.right
+
+        ELSE IF root.right = NULL THEN
+            RETURN root.left
+        END IF
+
         // Case 2: Two children
-        // Get inorder successor (smallest in right subtree)
-        temp = MinValueNode(root.right)
-        root.value = temp.value
-        root.right = Delete(root.right, temp.value)
-        
-    return root
-    .
+        temp ← MinValueNode(root.right)
+        root.value ← temp.value
+        root.right ← Delete(root.right, temp.value)
+
+    END IF
+
+    RETURN root
+
+END FUNCTION
+
+
+
+// ========================
+//    INORDER TRAVERSAL
+// ========================
+FUNCTION Inorder(root)
+
+    IF root ≠ NULL THEN
+        Inorder(root.left)
+        PRINT root.value
+        Inorder(root.right)
+    END IF
+
+END FUNCTION
+
+
+
+// ========================
+//    PREORDER TRAVERSAL
+// ========================
+FUNCTION Preorder(root)
+
+    IF root ≠ NULL THEN
+        PRINT root.value
+        Preorder(root.left)
+        Preorder(root.right)
+    END IF
+
+END FUNCTION
+
+
+
+// ========================
+//    POSTORDER TRAVERSAL
+// ========================
+FUNCTION Postorder(root)
+
+    IF root ≠ NULL THEN
+        Postorder(root.left)
+        Postorder(root.right)
+        PRINT root.value
+    END IF
+
+END FUNCTION
+
+
+END

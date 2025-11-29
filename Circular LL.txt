@@ -1,88 +1,141 @@
-Circular Linked List
+BEGIN
 
-Structure
-
-structure Node:
+// =============================
+//      NODE STRUCTURE
+// =============================
+STRUCTURE Node
     value
     next
-
-Insert at Head (Circular)
-function InsertCircular(head, newNode):
-    if head == NULL:
-        newNode.next = newNode
-        return newNode
-
-    temp = head
-    while temp.next != head:
-        temp = temp.next
-
-    temp.next = newNode
-    newNode.next = head
-    head = newNode
-    return head
-
-Insert at Tail (Circular)
-
-function InsertCircularTail(head, newNode):
-    if head == NULL:
-        newNode.next = newNode
-        return newNode
-    
-    temp = head
-    while temp.next != head:
-        temp = temp.next
-    
-    temp.next = newNode
-    newNode.next = head
-    return head
-
-Delete a Node by Value.
-
-function DeleteCircular(head, key):
-    if head == NULL:
-        return NULL
-
-    curr = head
-    prev = NULL
-
-    // Special case: delete head
-    if head.value == key:
-        temp = head
-        while temp.next != head:
-            temp = temp.next
-        
-        if head.next == head:
-            free(head)
-            return NULL
-        
-        temp.next = head.next
-        newHead = head.next
-        free(head)
-        return newHead
-
-    // General case
-    curr = head.next
-    prev = head
-
-    while curr != head:
-        if curr.value == key:
-            prev.next = curr.next
-            free(curr)
-            return head
-
-        prev = curr
-        curr = curr.next
-
-    return head
+END STRUCTURE
 
 
-Traversal
 
-function TraverseCircular(head):
-    if head is NULL: return
-    
-    temp = head
-    do:
-        print(temp.value)
-        temp = temp.next
-    while (temp != head)
+// =============================
+//     INSERT AT HEAD (CIRCULAR)
+// =============================
+FUNCTION InsertCircular(head, newNode)
+
+    IF head = NULL THEN
+        newNode.next ← newNode
+        RETURN newNode
+    END IF
+
+    temp ← head
+
+    WHILE temp.next ≠ head DO
+        temp ← temp.next
+    END WHILE
+
+    temp.next ← newNode
+    newNode.next ← head
+    head ← newNode
+
+    RETURN head
+
+END FUNCTION
+
+
+
+// =============================
+//     INSERT AT TAIL (CIRCULAR)
+// =============================
+FUNCTION InsertCircularTail(head, newNode)
+
+    IF head = NULL THEN
+        newNode.next ← newNode
+        RETURN newNode
+    END IF
+
+    temp ← head
+
+    WHILE temp.next ≠ head DO
+        temp ← temp.next
+    END WHILE
+
+    temp.next ← newNode
+    newNode.next ← head
+
+    RETURN head
+
+END FUNCTION
+
+
+
+// =============================
+//       DELETE BY VALUE
+// =============================
+FUNCTION DeleteCircular(head, key)
+
+    IF head = NULL THEN
+        RETURN NULL
+    END IF
+
+    curr ← head
+    prev ← NULL
+
+    // Case 1: Delete head node
+    IF head.value = key THEN
+
+        temp ← head
+
+        WHILE temp.next ≠ head DO
+            temp ← temp.next
+        END WHILE
+
+        // Only one node
+        IF head.next = head THEN
+            FREE(head)
+            RETURN NULL
+        END IF
+
+        temp.next ← head.next
+        newHead ← head.next
+        FREE(head)
+
+        RETURN newHead
+    END IF
+
+
+    // Case 2: Delete any other node
+    curr ← head.next
+    prev ← head
+
+    WHILE curr ≠ head DO
+
+        IF curr.value = key THEN
+            prev.next ← curr.next
+            FREE(curr)
+            RETURN head
+        END IF
+
+        prev ← curr
+        curr ← curr.next
+
+    END WHILE
+
+    RETURN head    // Key not found
+
+END FUNCTION
+
+
+
+// =============================
+//       TRAVERSAL
+// =============================
+FUNCTION TraverseCircular(head)
+
+    IF head = NULL THEN
+        RETURN
+    END IF
+
+    temp ← head
+
+    DO
+        PRINT temp.value
+        temp ← temp.next
+    WHILE temp ≠ head
+
+END FUNCTION
+
+
+END
