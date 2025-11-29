@@ -1,0 +1,32 @@
+BEGIN
+
+FUNCTION BreadthFirstSearch(Graph, start_node)
+
+DECLARE Queue q
+DECLARE Set visited
+
+// Initialize with the starting node
+ENQUEUE(q, start_node)
+ADD(visited, start_node)
+
+WHILE q is NOT EMPTY DO
+
+    DECLARE Node current_node ← DEQUEUE(q)
+    PRINT(current_node)
+
+    // Process all adjacent neighbors
+    FOR each neighbor IN Graph[current_node] DO
+
+        IF neighbor is NOT IN visited THEN
+            ADD(visited, neighbor)
+            ENQUEUE(q, neighbor)
+        END IF
+
+    END FOR
+
+END WHILE
+
+
+END FUNCTION
+
+END

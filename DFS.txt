@@ -1,0 +1,36 @@
+BEGIN
+
+FUNCTION DepthFirstSearch(Graph, start_node)
+
+DECLARE Stack s
+DECLARE Set visited
+
+PUSH(s, start_node)
+
+WHILE s is NOT EMPTY DO
+
+    DECLARE Node current_node ← POP(s)
+
+    // In iterative DFS, we check visited status after popping
+    // to ensure we traverse the deepest path first
+    IF current_node is NOT IN visited THEN
+        
+        ADD(visited, current_node)
+        PRINT(current_node)
+
+        // Push neighbors to stack. 
+        // Note: Pushing in reverse order preserves left-to-right traversal
+        FOR each neighbor IN Graph[current_node] DO
+            IF neighbor is NOT IN visited THEN
+                PUSH(s, neighbor)
+            END IF
+        END FOR
+
+    END IF
+
+END WHILE
+
+
+END FUNCTION
+
+END
