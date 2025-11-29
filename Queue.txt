@@ -1,0 +1,33 @@
+Initialize:
+    front = -1
+    rear = -1
+    queue[MAX]
+
+----------------------------------------------------
+
+function Enqueue(value):
+    if rear == MAX - 1:
+        print("Overflow")
+        return
+
+    if front == -1:            // First insertion
+        front = 0
+
+    rear = rear + 1
+    queue[rear] = value
+
+----------------------------------------------------
+
+function Dequeue():
+    if front == -1 OR front > rear:
+        print("Underflow")
+        return
+
+    value = queue[front]
+    front = front + 1
+
+    if front > rear:           // Queue becomes empty
+        front = -1
+        rear = -1
+
+    return value

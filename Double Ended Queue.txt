@@ -1,0 +1,100 @@
+Initialize:
+    front = -1
+    rear = -1
+    array deque[MAX]
+
+InsertFront(val)
+
+function InsertFront(val):
+    // Check Overflow
+    if ( (front == 0 AND rear == MAX-1) OR (front == rear + 1) ):
+        print("Overflow")
+        return
+
+    // First element
+    if front == -1:
+        front = 0
+        rear = 0
+
+    else if front == 0:
+        front = MAX - 1       // wrap around
+
+    else:
+        front = front - 1
+
+    deque[front] = val
+
+InsertRear(val)
+
+function InsertRear(val):
+    // Check Overflow
+    if ( (front == 0 AND rear == MAX-1) OR (front == rear + 1) ):
+        print("Overflow")
+        return
+
+    // First element
+    if front == -1:
+        front = 0
+        rear = 0
+
+    else if rear == MAX - 1:
+        rear = 0             // wrap around
+
+    else:
+        rear = rear + 1
+
+    deque[rear] = val
+
+DeleteFront()
+
+function DeleteFront():
+    if front == -1:
+        print("Underflow")
+        return
+
+    // Single element
+    if front == rear:
+        front = -1
+        rear = -1
+        return
+
+    else if front == MAX - 1:
+        front = 0            // wrap around
+
+    else:
+        front = front + 1
+
+DeleteRear()
+
+function DeleteRear():
+    if rear == -1:
+        print("Underflow")
+        return
+
+    // Single element
+    if front == rear:
+        front = -1
+        rear = -1
+        return
+
+    else if rear == 0:
+        rear = MAX - 1       // wrap around
+
+    else:
+        rear = rear - 1
+
+PeekFront()
+
+function PeekFront():
+    if front == -1:
+        print("Empty")
+    else:
+        print(deque[front])
+
+PeekRear()
+
+function PeekRear():
+    if rear == -1:
+        print("Empty")
+    else:
+        print(deque[rear])

@@ -1,0 +1,47 @@
+Priority Queue stored as Max Heap
+PQ.heap[ ]      // array
+PQ.size = 0
+
+----------------------------------------------------
+
+function Insert(PQ, value):
+    PQ.size = PQ.size + 1
+    PQ.heap[PQ.size] = value
+
+    // Bubble Up
+    i = PQ.size
+    while i > 1 AND PQ.heap[i] > PQ.heap[i/2]:
+        swap(PQ.heap[i], PQ.heap[i/2])
+        i = i / 2
+
+----------------------------------------------------
+
+function ExtractMax(PQ):
+    if PQ.size < 1:
+        print("Underflow")
+        return
+
+    maxVal = PQ.heap[1]              // root
+    PQ.heap[1] = PQ.heap[PQ.size]    // move last to root
+    PQ.size = PQ.size - 1
+
+    MaxHeapify(PQ, 1)
+
+    return maxVal
+
+----------------------------------------------------
+
+function MaxHeapify(PQ, i):
+    left = 2 * i
+    right = 2 * i + 1
+    largest = i
+
+    if left <= PQ.size AND PQ.heap[left] > PQ.heap[largest]:
+        largest = left
+
+    if right <= PQ.size AND PQ.heap[right] > PQ.heap[largest]:
+        largest = right
+
+    if largest != i:
+        swap(PQ.heap[i], PQ.heap[largest])
+        MaxHeapify(PQ, largest)       // continue bubbling down

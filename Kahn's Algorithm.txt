@@ -1,0 +1,33 @@
+function KahnsAlgorithm(Graph):
+    inDegree = map/array initialized to 0 for all vertices
+    
+    // 1. Compute in-degree for all nodes
+    for each u in Graph:
+        for each neighbor v of u:
+            inDegree[v] = inDegree[v] + 1
+            
+    // 2. Pick all nodes with in-degree 0 and add to queue
+    Queue = new Queue()
+    for each v in Graph:
+        if inDegree[v] == 0:
+            Queue.enqueue(v)
+            
+    topologicalOrder = []
+    
+    // 3. Process Queue
+    while Queue is not empty:
+        u = Queue.dequeue()
+        topologicalOrder.append(u)
+        
+        for each neighbor v of u:
+            inDegree[v] = inDegree[v] - 1
+            if inDegree[v] == 0:
+                Queue.enqueue(v)
+                
+    // 4. Check for Cycle
+    if length(topologicalOrder) != NumberOfVertices:
+        return Error("Graph has a cycle")
+        
+    return topologicalOrder
+
+    .

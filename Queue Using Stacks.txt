@@ -1,0 +1,21 @@
+Two stacks: s1, s2
+Both initially empty
+
+----------------------------------------------------
+
+function Enqueue(x):
+    Push x onto s1
+
+----------------------------------------------------
+
+function Dequeue():
+    if s1 is empty AND s2 is empty:
+        print("Underflow")
+        return
+
+    // Move items only if s2 is empty
+    if s2 is empty:
+        while s1 is not empty:
+            Push( Pop(s1) ) onto s2
+
+    return Pop(s2)

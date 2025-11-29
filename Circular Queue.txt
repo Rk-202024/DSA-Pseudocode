@@ -1,0 +1,37 @@
+Initialize:
+    front = -1
+    rear = -1
+    queue[SIZE]
+
+----------------------------------------------------
+
+function CircularEnqueue(value):
+    // Check Full
+    if ( (rear + 1) % SIZE ) == front:
+        print("Overflow")
+        return
+
+    // First insertion
+    if front == -1:
+        front = 0
+
+    rear = (rear + 1) % SIZE
+    queue[rear] = value
+
+----------------------------------------------------
+
+function CircularDequeue():
+    if front == -1:
+        print("Underflow")
+        return
+
+    data = queue[front]
+
+    // Queue becomes empty
+    if front == rear:
+        front = -1
+        rear = -1
+    else:
+        front = (front + 1) % SIZE
+
+    return data

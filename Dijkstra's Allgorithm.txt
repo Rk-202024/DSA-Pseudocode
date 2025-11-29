@@ -1,0 +1,22 @@
+function Dijkstra(Graph, source):
+    // Initialization
+    dist[] = array of size |V| filled with INFINITY
+    prev[] = array of size |V| filled with NULL
+    dist[source] = 0
+    
+    // Priority Queue to store pairs (distance, vertex)
+    PQ = new PriorityQueue()
+    PQ.enqueue(0, source)
+    
+    while PQ is not empty:
+        u = PQ.extractMin() // Get vertex with smallest distance
+        
+        for each neighbor v of u:
+            alt = dist[u] + weight(u, v)
+            if alt < dist[v]:
+                dist[v] = alt
+                prev[v] = u
+                PQ.enqueue(dist[v], v)
+                
+    return dist, prev
+.

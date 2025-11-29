@@ -1,0 +1,21 @@
+Two queues: q1, q2
+Both initially empty
+
+----------------------------------------------------
+
+function Push(x):
+    Enqueue(q2, x)
+
+    while q1 is not empty:
+        Enqueue(q2, Dequeue(q1))
+
+    Swap(q1, q2)        // q1 becomes the main queue
+
+----------------------------------------------------
+
+function Pop():
+    if q1 is empty:
+        print("Underflow")
+        return
+
+    return Dequeue(q1)

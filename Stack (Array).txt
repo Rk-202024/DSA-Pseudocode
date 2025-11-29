@@ -1,0 +1,24 @@
+Initialize:
+    top = -1
+    stack[SIZE]
+
+----------------------------------------------------
+
+function Push(value):
+    if top == SIZE - 1:
+        print("Overflow")
+        return
+
+    top = top + 1
+    stack[top] = value
+
+----------------------------------------------------
+
+function Pop():
+    if top == -1:
+        print("Underflow")
+        return
+
+    value = stack[top]
+    top = top - 1
+    return value
