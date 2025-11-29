@@ -1,0 +1,87 @@
+Doubly Linked List (DLL) 
+
+Structure of a DLL Node
+
+structure Node:
+    value
+    prev
+    next
+
+Insert Node at Head
+
+function DLLInsert(head, newNode):
+    newNode.next = head
+    newNode.prev = NULL
+    
+    if head is not NULL:
+        head.prev = newNode
+        
+    head = newNode
+    return head
+
+Insert at Tail
+
+function InsertAtTail(head, newNode):
+    if head == NULL:
+        newNode.prev = NULL
+        newNode.next = NULL
+        return newNode
+
+    temp = head
+    while temp.next != NULL:
+        temp = temp.next
+
+    temp.next = newNode
+    newNode.prev = temp
+    newNode.next = NULL
+
+    return head
+
+Delete a Node by Value
+
+function DeleteNode(head, key):
+    if head == NULL:
+        return NULL
+    
+    temp = head
+    
+    while temp != NULL and temp.value != key:
+        temp = temp.next
+    
+    if temp == NULL:
+        return head     // key not found
+    
+    if temp.prev != NULL:
+        temp.prev.next = temp.next
+    else:
+        head = temp.next    // deleting head
+    
+    if temp.next != NULL:
+        temp.next.prev = temp.prev
+    
+    free(temp)
+    return head
+
+
+Traverse Forward
+
+function TraverseForward(head):
+    temp = head
+    while temp != NULL:
+        print(temp.value)
+        temp = temp.next
+
+
+Traverse Backward
+
+function TraverseBackward(head):
+    if head == NULL:
+        return
+    
+    temp = head
+    while temp.next != NULL:
+        temp = temp.next   // reach tail
+    
+    while temp != NULL:
+        print(temp.value)
+        temp = temp.prev

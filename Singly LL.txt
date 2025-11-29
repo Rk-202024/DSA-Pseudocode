@@ -1,0 +1,93 @@
+Add/Remove in Middle
+
+Add Node at Position k
+
+function AddAtPosition(head, value, k):
+    newNode = new Node(value)
+    
+    // Case: Insert at head
+    if k == 0:
+        newNode.next = head
+        return newNode
+    
+    current = head
+    // Traverse to the node *before* the insertion point
+    for i from 0 to k - 2:
+        if current is NULL: return head // Index out of bounds
+        current = current.next
+        
+    // Link new node
+    newNode.next = current.next
+    current.next = newNode
+    return head
+
+
+Add Node at Position k
+
+function RemoveAtPosition(head, k):
+    if head is NULL: return NULL
+    
+    // Case: Remove head
+    if k == 0:
+        temp = head
+        head = head.next
+        free(temp)
+        return head
+        
+    current = head
+    // Traverse to node *before* the target
+    for i from 0 to k - 2:
+        if current.next is NULL: return head
+        current = current.next
+        
+    if current.next is NULL: return head
+    
+    // Unlink the node
+    toDelete = current.next
+    current.next = current.next.next
+    free(toDelete)
+    return head
+
+Reverse Linked List
+
+function ReverseList(head):
+    prev = NULL
+    current = head
+    next = NULL
+    
+    while current is not NULL:
+        next = current.next   // Save next
+        current.next = prev   // Reverse pointer
+        prev = current        // Move prev forward
+        current = next        // Move current forward
+        
+    return prev // New head
+
+
+Merge Two Sorted Lists
+
+function MergeSorted(l1, l2):
+    // Create a dummy node to simplify edge cases
+    dummy = new Node(0)
+    tail = dummy
+    
+    while l1 is not NULL and l2 is not NULL:
+        if l1.value <= l2.value:
+            tail.next = l1
+            l1 = l1.next
+        else:
+            tail.next = l2
+            l2 = l2.next
+        tail = tail.next
+        
+    // Attach remaining elements
+    if l1 is not NULL:
+        tail.next = l1
+    else:
+        tail.next = l2
+        
+    return dummy.next
+
+
+
+
